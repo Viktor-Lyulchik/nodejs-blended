@@ -1,29 +1,26 @@
 import { Schema } from 'mongoose';
 import { model } from 'mongoose';
 
-const studentSchema = new Schema(
+const productSchema = new Schema(
   {
     name: {
       type: String,
       required: true,
     },
-    age: {
+    price: {
       type: Number,
       required: true,
     },
-    gender: {
+    category: {
       type: String,
       required: true,
-      enum: ['male', 'female', 'other'],
+      enum: ['books', 'electronics', 'clothing', 'other'],
+      default: 'other',
     },
-    avgMark: {
-      type: Number,
-      required: true,
-    },
-    onDuty: {
-      type: Boolean,
-      required: true,
-      default: false,
+    description: {
+      type: String,
+      required: false,
+      default: '',
     },
   },
   {
@@ -32,4 +29,4 @@ const studentSchema = new Schema(
   },
 );
 
-export const Student = model('Student', studentSchema);
+export const Product = model('Product', productSchema);
