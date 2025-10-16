@@ -1,4 +1,3 @@
-import { Product } from '../models/product.js';
 import createHttpError from 'http-errors';
 import {
   createProductService,
