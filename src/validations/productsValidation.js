@@ -11,26 +11,22 @@ export const updateProductSchema = {
     productId: Joi.string().custom(objectIdValidator).required(),
   }),
   [Segments.BODY]: Joi.object({
-    name: Joi.string().min(2).required().messages({
+    name: Joi.string().min(2).messages({
       'string.base': 'Name must be a string',
       'string.min': 'Name should have at least {#limit} characters',
-      'any.required': 'Name is required',
     }),
-    price: Joi.number().min(0.01).required().messages({
+    price: Joi.number().min(0.01).messages({
       'number.base': 'Price must be a number',
       'number.min': 'Price must be at least {#limit}',
-      'any.required': 'Price is required',
-    }),
-    description: Joi.string().allow('').messages({
-      'string.base': 'Description must be a string',
     }),
     category: Joi.string()
       .valid(...CATEGORIES)
-      .required()
       .messages({
         'any.only': `Category must be one of: ${CATEGORIES.join(',')}`,
-        'any.required': 'Category is required',
       }),
+    description: Joi.string().allow('').messages({
+      'string.base': 'Description must be a string',
+    }),
   }).min(1),
 };
 
@@ -52,9 +48,6 @@ export const createProductSchema = {
       'number.min': 'Price must be at least {#limit}',
       'any.required': 'Price is required',
     }),
-    description: Joi.string().allow('').messages({
-      'string.base': 'Description must be a string',
-    }),
     category: Joi.string()
       .valid(...CATEGORIES)
       .required()
@@ -62,6 +55,9 @@ export const createProductSchema = {
         'any.only': `Category must be one of: ${CATEGORIES.join(',')}`,
         'any.required': 'Category is required',
       }),
+    description: Joi.string().allow('').messages({
+      'string.base': 'Description must be a string',
+    }),
   }),
 };
 

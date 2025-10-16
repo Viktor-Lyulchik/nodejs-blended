@@ -11,10 +11,11 @@ export const getProductsService = async (req) => {
     productsQuery.where('category').equals(category);
   }
   if (search && search.trim() !== '') {
-    productsQuery.or([
-      { title: { $regex: search, $options: 'i' } },
-      { content: { $regex: search, $options: 'i' } },
-    ]);
+    productsQuery.where({ $text: { $search: search } });
+    // productsQuery.or([
+    //   { name: { $regex: search, $options: 'i' } },
+    //   { description: { $regex: search, $options: 'i' } },
+    // ]);
   }
 
   const [totalProducts, products] = await Promise.all([
