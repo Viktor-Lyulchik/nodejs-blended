@@ -9,53 +9,41 @@ import {
 
 // Отримати список усіх продуктів
 export const getProducts = async (req, res) => {
-  const products = await getProductsService();
+  const products = await getProductsService(req);
   res.status(200).json(products);
 };
 
 // Отримати одного продукт за id
 export const getProductById = async (req, res, next) => {
-  const { productId } = req.params;
-  const product = await getProductByIdService(productId);
+  const product = await getProductByIdService(req);
 
   if (!product) {
     throw createHttpError(404, 'Product not found');
-    // next(createHttpError(404, 'Product not found'));
-    // return;
   }
 
   res.status(200).json(product);
 };
 
 export const createProduct = async (req, res) => {
-  const product = await createProductService(req.body);
+  const product = await createProductService(req);
   res.status(201).json(product);
 };
 
 export const deleteProduct = async (req, res, next) => {
-  const { productId } = req.params;
-  const product = await deleteProductByIdService({
-    _id: productId,
-  });
+  const product = await deleteProductByIdService(req);
 
   if (!product) {
     throw createHttpError(404, 'Product not found');
-    // next(createHttpError(404, 'Product not found'));
-    // return;
   }
 
   res.status(200).send(product);
 };
 
 export const updateProduct = async (req, res, next) => {
-  const { productId } = req.params;
-
-  const product = await updateProductByIdService({ productId, body: req.body });
+  const product = await updateProductByIdService(req);
 
   if (!product) {
     throw createHttpError(404, 'Product not found');
-    // next(createHttpError(404, 'Product not found'));
-    // return;
   }
 
   res.status(200).json(product);
