@@ -5,10 +5,10 @@ const userSchema = new Schema(
     username: { type: String, required: false, trim: true },
     email: { type: String, unique: true, required: true, trim: true },
     password: { type: String, required: true, trim: true },
-    // avatar: {
-    //   type: String,
-    //   required: false,
-    // },
+    avatar: {
+      type: String,
+      required: false,
+    },
   },
   { timestamps: true, versionKey: false },
 );
@@ -18,9 +18,9 @@ userSchema.pre('save', function (next) {
     this.username = this.email;
   }
 
-  // if (!this.avatar) {
-  //   this.avatar = 'https://ac.goit.global/fullstack/react/default-avatar.jpg';
-  // }
+  if (!this.avatar) {
+    this.avatar = 'https://ac.goit.global/fullstack/react/default-avatar.jpg';
+  }
 
   next();
 });
