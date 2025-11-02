@@ -13,7 +13,7 @@ export const updateUserAvatar = async (req, res, next) => {
 
   const result = await saveFileToCloudinary(req.file.buffer);
 
-  if (req.user.avatar_id != '') {
+  if (req.user.avatar_id !== '') {
     await deleteFileFromCloudinary(req.user.avatar_id);
   }
 
